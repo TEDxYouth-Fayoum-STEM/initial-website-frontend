@@ -1,0 +1,36 @@
+:root {
+  --animate-delay: 0.5s;
+  --swiper-theme-color: var(--color-primary-300);
+}
+
+#nprogress .bar {
+  background: var(--color-primary-200) !important;
+  height: 4px !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--color-primary-200) !important;
+  border-left-color: var(--color-primary-200) !important;
+}
+
+.wheel {
+  --width: 300px;
+  --text-size: 13px;
+  --text-width: 75px;
+}
+
+@media screen(md){
+  .wheel {
+    --width: 500px;
+    --text-size: 20px;
+    --text-width: 130px;
+  }
+}
+
+@media screen(lg, xl, 2xl) {
+	.wheel {
+		--width: 600px;
+		--text-size: 22px;
+		--text-width: 145px;
+	}
+}

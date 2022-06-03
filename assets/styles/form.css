@@ -1,0 +1,21 @@
+@layer utilities {
+  .form-label {
+    @apply mb-2 block select-none font-medium;
+    @apply file:text-gray-900 dark:text-gray-300;
+  }
+
+  .form-control {
+    @apply block w-full rounded-md border p-2.5;
+    @apply border-gray-300 bg-gray-50 text-gray-900;
+    @apply focus:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-200;
+    @apply dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400;
+  }
+
+  .form-control.form-icon {
+    @apply pl-12;
+  }
+
+  .form-control.error {
+    @apply border-red-500 bg-red-50 text-red-900 placeholder-red-700 dark:border-red-400 dark:bg-red-100;
+  }
+}

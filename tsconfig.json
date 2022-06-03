@@ -11,7 +11,8 @@
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": false,
-    "allowJs": false
+    "allowJs": false,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,46 @@
+$pairs: 5;
+
+.wheel {
+  --width: 500px;
+
+  --border-width: 5px;
+  --border-color: #000;
+
+  --text-size: 20px;
+  --text-width: 175x;
+
+  --main-color: #ef4444;
+  --main-text-color: #f7f7f7;
+
+  --color-1: #191d24;
+  --text-color-1: #f7f7f7;
+  --color-2: #f7f7f7;
+  --text-color-2: #191d24;
+
+  --arrow-width: 70px;
+  --btn-width: 60px;
+  --btn-text-size: 18px;
+  --btn-bg: #ef4444;
+  --btn-color: #f7f7f7;
+  --btn-hover-color: #191d24;
+  --btn-active-color: #0000001a;
+
+  --text-trans-org-add: 0px;
+
+  // others
+  --text-margin-top: calc(var(--width) / -2.5);
+  --text-margin-left: calc(var(--text-size) / -3.5);
+  --text-trans-org: calc(var(--text-size) * 0.95 + var(--text-trans-org-add));
+
+  --font: Montserrat;
+
+  // calculations (no need to edit them)
+  // half radius of the circle
+  --r: calc(var(--width) / 2);
+  // half side length of the polygon that the circle is in
+  --l: calc(var(--r) * #{math.tan(math.div(360deg, ($pairs * 4)))});
+  --arrow-location: calc(50% - (var(--arrow-width) / 2));
+}
+
+$colors: 2;
+$duration: 5s;

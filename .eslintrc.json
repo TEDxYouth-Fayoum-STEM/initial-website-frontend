@@ -19,6 +19,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/essential",
+    "@nuxtjs/eslint-config-typescript",
     "plugin:prettier/recommended"
   ],
   "rules": {
