@@ -1,9 +1,10 @@
 <template>
   <div class="contents">
-    <div class="box p-5 drop-shadow-md">
-      <!--FragmentTicketsForm /-->
-      <Title text="CHECK OUR OFFERS" mb="mb-8" class="text-center" />
-      <TimerCountdown :timestamp="1654290000000" />
+    <FragmentTimer title="CHECK OUR OFFERS!" class="mb-8" />
+    <FragmentTicketsPackage class="mb-4 lg:mb-7" />
+    <FragmentTicketsInstructions class="mb-4 lg:mb-7" />
+    <div class="box block w-full p-5 drop-shadow-md">
+      <FragmentTicketsForm />
     </div>
   </div>
 </template>

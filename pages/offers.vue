@@ -1,9 +1,6 @@
 <template>
   <div class="content">
-    <div class="box flex flex-col justify-items-center p-5 drop-shadow-md">
-      <Title text="FayWHEEL!" mb="mb-8" class="text-center" />
-      <TimerCountdown :timestamp="1654552800000" />
-    </div>
+    <FragmentTimer title="FayWHEEL!" />
     <div class="box flex justify-center p-5 drop-shadow-md">
       <div class="wheel-container">
         <div class="wheel">

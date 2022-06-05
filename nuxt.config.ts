@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     "swiper/css/pagination",
     "animate.css/animate.min.css",
     "@fortawesome/fontawesome-svg-core/styles.css",
+    "@vueform/multiselect/themes/default.css",
     "sweetalert2/dist/sweetalert2.min.css",
     "assets/styles/wheel.scss",
     "assets/styles/main.css",

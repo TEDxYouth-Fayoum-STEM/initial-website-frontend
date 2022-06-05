@@ -3,12 +3,12 @@
     <Marked
       text="Book Your Ticket Now!"
       priority="high"
-      class="select-none text-2xl"
+      class="mb-5 select-none text-center text-2xl"
     />
     <FormData
       :schema="s"
       class="mt-3 grid grid-cols-1 gap-x-6 lg:mt-4 lg:grid-cols-2"
-      @submit="next"
+      @submit="submit"
       @error="handleErrors"
     >
       <FormControl name="name" :schema="s.name" :e="e.name" />
@@ -40,6 +40,17 @@
         :schema="s.school_or_uni"
         :e="e.school_or_uni"
       />
+      <div class="mb-4 lg:col-span-2">
+        <label class="label">Interests</label>
+        <MultiSelect
+          v-model="selectedInterests"
+          :options="interests"
+          :limit="interests.length"
+          :searchable="true"
+          placeholder="Select your interests (mulitiples are allowed)"
+          mode="tags"
+        />
+      </div>
       <FormControl
         name="email"
         ph="mail@example.com"
@@ -69,7 +80,7 @@
       <FormControl
         name="governorate"
         ph="Select The Governorate"
-        class="col-span-2"
+        class="lg:col-span-2"
         :schema="s.governorate"
         :e="e.governorate"
         select
@@ -84,11 +95,25 @@
       </FormControl>
       <FormControl
         name="question"
-        class="col-span-2"
+        class="lg:col-span-2"
         :schema="s.question"
         :e="e.question"
       />
-      <div class="mb-4 pt-2">
+      <FormControl
+        name="charging_nu"
+        :schema="s.charging_nu"
+        :e="e.charging_nu"
+      />
+      <FormControl name="promocode" :schema="s.promocode" :e="e.promocode" />
+      <FormControl
+        name="receipt_img"
+        type="file"
+        i="solid receipt"
+        class="lg:col-span-2"
+        :schema="s.receipt_img"
+        :e="e.receipt_img"
+      />
+      <div class="mb-4 pt-2 lg:col-span-2">
         <input
           id="ticket-form-agreement"
           v-model="agreement"
@@ -110,10 +135,10 @@
 
 <script lang="ts" setup>
 import Swal from "sweetalert2";
-// import { FireEvent } from '~~/utils/alert';
 import { initErrorObject, IFormSchema, setFieldError } from "~~/utils/form";
+import { fetcher } from "~~/utils/fetcher";
 import governorates from "~~/data/governorates.json";
-// import intersetsData from "~~/data/interests.json";
+import interests from "~~/data/interests.json";
 
 const e = reactive(
   initErrorObject(
@@ -127,7 +152,10 @@ const e = reactive(
     "birthdate",
     "profile_img",
     "governorate",
-    "question"
+    "question",
+    "charging_nu",
+    "promocode",
+    "receipt_img"
   )
 );
 const s = reactive({
@@ -166,13 +194,25 @@ const s = reactive({
     label: "How Did You Hear About Us ?",
     req: true,
   },
+  charging_nu: {
+    label: "Charging Number",
+    req: true,
+  },
+  promocode: {
+    label: "Promocode",
+  },
+  receipt_img: {
+    label: "Receipt Image",
+    req: true,
+  },
 } as IFormSchema);
 
 const handleErrors = setFieldError(e);
 
+const selectedInterests = ref([]);
 const agreement = ref(false);
 
-function next(_data: FormData): void {
+function submit(data: FormData): void {
   if (!agreement.value) {
     Swal.fire({
       icon: "info",
@@ -181,5 +221,23 @@ function next(_data: FormData): void {
       confirmButtonColor: "var(--color-primary-300)",
     });
   }
+  if (selectedInterests.value.length > 0)
+    data.append("interests", selectedInterests.value.join("|"));
+  fetcher("tickets/book", data).then((res) => {
+    if (res.data.status) {
+      Swal.fire({
+        title: "The Payment was a Success!",
+        icon: "success",
+        html: "We will notify you when we send the tickets! Wait for our email from <span class='text-primary-300 font-bold'>tickets@tedxfay.org</span>",
+        confirmButtonText: "OK",
+        confirmButtonColor: "var(--color-primary-200)",
+      });
+    } else {
+      Swal.fire({
+        title: "Something Went Wrong!",
+        icon: "error",
+      });
+    }
+  });
 }
 </script>

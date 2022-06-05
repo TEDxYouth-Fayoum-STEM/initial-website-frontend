@@ -100,6 +100,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  success: {
+    type: String,
+    default: null,
+  },
   modelValue: {
     type: [File, String],
     default: "",
