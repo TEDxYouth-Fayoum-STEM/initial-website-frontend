@@ -46,8 +46,11 @@
         <Icon i="solid x" size="lg" class="text-error" />
       </div>
     </div>
-    <p class="ml-1 mt-1 text-red-600 dark:text-red-500">
+    <p v-if="error" class="ml-1 mt-1 text-red-600 dark:text-red-500">
       {{ error }}
+    </p>
+    <p v-if="successMsg" class="mt-2 text-green-600 dark:text-green-500">
+      {{ successMsg }}
     </p>
   </div>
 </template>
@@ -58,6 +61,7 @@ import messages from "~~/constants/messages";
 
 const value = ref("");
 const error = ref("");
+const successMsg = ref("");
 
 const props = defineProps({
   schema: {
@@ -124,6 +128,15 @@ watch(
   () => props.e.n,
   () => {
     error.value = props.e.msg;
+    successMsg.value = "";
+  }
+);
+
+watch(
+  () => props.success,
+  () => {
+    successMsg.value = props.success;
+    error.value = "";
   }
 );
 
@@ -156,6 +169,7 @@ async function validate(value: unknown, online = true): Promise<boolean> {
     const result = await props.schema.validate(value, online);
     if (result) {
       error.value = result;
+      successMsg.value = "";
       return false;
     }
   }
@@ -176,6 +190,7 @@ async function change(e: Event): Promise<void> {
   if (props.select) emit("update:modelValue", value);
   if (props.schema.req && [undefined, null, ""].includes(<string>value)) {
     error.value = messages.required;
+    successMsg.value = "";
     return;
   }
   if (props.schema && props.schema.validate) {

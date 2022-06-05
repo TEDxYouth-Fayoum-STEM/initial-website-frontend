@@ -9,7 +9,7 @@
       :schema="s"
       class="mt-3 grid grid-cols-1 gap-x-6 lg:mt-4 lg:grid-cols-2"
       @submit="submit"
-      @error="handleErrors"
+      @error="() => setFieldError(e)"
     >
       <FormControl name="name" :schema="s.name" :e="e.name" />
       <FormControl
@@ -59,10 +59,12 @@
         :e="e.email"
       />
       <FormControl
+        v-model="phone"
         name="wa_nu"
         i="brands whatsapp-square"
         :schema="s.wa_nu"
         :e="e.wa_nu"
+        @change="checkPhone"
       />
       <FormControl
         name="birthdate"
@@ -104,7 +106,14 @@
         :schema="s.charging_nu"
         :e="e.charging_nu"
       />
-      <FormControl name="promocode" :schema="s.promocode" :e="e.promocode" />
+      <FormControl
+        v-model="promocode"
+        name="promocode"
+        :schema="s.promocode"
+        :e="e.promocode"
+        :success="promocodeMsg"
+        @change="checkPromocode"
+      />
       <FormControl
         name="receipt_img"
         type="file"
@@ -134,7 +143,7 @@
 </template>
 
 <script lang="ts" setup>
-import Swal from "sweetalert2";
+import { FireEvent } from "~~/utils/alert";
 import { initErrorObject, IFormSchema, setFieldError } from "~~/utils/form";
 import { fetcher } from "~~/utils/fetcher";
 import governorates from "~~/data/governorates.json";
@@ -207,36 +216,69 @@ const s = reactive({
   },
 } as IFormSchema);
 
-const handleErrors = setFieldError(e);
-
+const phone = ref("");
+const promocode = ref("");
+const checkedPromocode = ref(true);
+const promocodeMsg = ref("");
 const selectedInterests = ref([]);
 const agreement = ref(false);
 
+function checkPhone(): void {
+  if (promocode.value) checkPromocode();
+}
+watch(promocode, (value: string) => {
+  if (value) {
+    checkedPromocode.value = false;
+  } else {
+    checkedPromocode.value = true;
+  }
+});
+
+async function checkPromocode(): Promise<void> {
+  if (promocode.value) {
+    try {
+      FireEvent.loading("Loading the Promocode");
+      const res = await fetcher("promocodes/check", {
+        phone: phone.value,
+        promocode: promocode.value,
+      });
+      checkedPromocode.value = true;
+      promocodeMsg.value = `You have got a ${res.data.text}, The ticket price is ${res.data.price} L.E.`;
+      FireEvent.close();
+    } catch (error) {
+      checkedPromocode.value = false;
+      if (typeof error === "string") {
+        e.promocode.n++;
+        e.promocode.msg = error;
+      }
+    }
+  }
+}
+
 function submit(data: FormData): void {
+  if (!checkedPromocode.value) {
+    FireEvent.errors(["There is a problem with the promocode!"]);
+    return;
+  }
   if (!agreement.value) {
-    Swal.fire({
+    FireEvent.alert({
       icon: "info",
       text: "Please read the instructions and the notice",
       confirmButtonText: "OK",
       confirmButtonColor: "var(--color-primary-300)",
     });
+    return;
   }
   if (selectedInterests.value.length > 0)
     data.append("interests", selectedInterests.value.join("|"));
   fetcher("tickets/book", data).then((res) => {
     if (res.data.status) {
-      Swal.fire({
-        title: "The Payment was a Success!",
-        icon: "success",
-        html: "We will notify you when we send the tickets! Wait for our email from <span class='text-primary-300 font-bold'>tickets@tedxfay.org</span>",
-        confirmButtonText: "OK",
-        confirmButtonColor: "var(--color-primary-200)",
-      });
+      FireEvent.success(
+        "The Payment was a Success!",
+        "We will notify you when we send the tickets! Wait for our email from <span class='text-primary-300 font-bold'>tickets@tedxfay.org</span>"
+      );
     } else {
-      Swal.fire({
-        title: "Something Went Wrong!",
-        icon: "error",
-      });
+      FireEvent.defaultError();
     }
   });
 }
