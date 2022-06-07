@@ -1,7 +1,7 @@
 <template>
   <div class="box flex flex-col justify-items-center p-5 drop-shadow-md">
     <Title :text="props.title" mb="mb-8" class="text-center" />
-    <TimerCountdown :timestamp="1654639199000" />
+    <TimerCountdown :timestamp="1654725600000" />
   </div>
 </template>
 
