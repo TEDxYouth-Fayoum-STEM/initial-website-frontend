@@ -250,6 +250,7 @@ async function checkPromocode(): Promise<void> {
       if (typeof error === "string") {
         e.promocode.n++;
         e.promocode.msg = error;
+        promocodeMsg.value = "";
       }
     }
   }

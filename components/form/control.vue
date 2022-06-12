@@ -197,6 +197,7 @@ async function change(e: Event): Promise<void> {
     if (!(await props.schema.validate(value))) return;
   }
   error.value = "";
+  successMsg.value = "";
   emit("change", value);
 }
 </script>

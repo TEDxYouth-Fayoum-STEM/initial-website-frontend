@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <FragmentTimer title="FayWHEEL!" />
-    <div class="box flex justify-center p-5 drop-shadow-md">
+    <!--div class="box flex justify-center p-5 drop-shadow-md">
       <div class="wheel-container">
         <div class="wheel">
           <div id="wheel-items" class="wheel-items">
@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div-->
   </div>
 </template>
 
