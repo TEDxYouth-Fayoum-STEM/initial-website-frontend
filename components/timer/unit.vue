@@ -8,6 +8,9 @@
       <span class="single-digit">
         {{ rightDigit }}
       </span>
+      <span v-if="thirdDigit" class="single-digit">
+        {{ thirdDigit }}
+      </span>
     </div>
   </div>
 </template>
@@ -29,6 +32,9 @@ const leftDigit = computed(() =>
 );
 const rightDigit = computed(() =>
   props.digit >= 10 ? props.digit.toString()[1] : props.digit.toString()
+);
+const thirdDigit = computed(() =>
+  props.digit > 99 ? props.digit.toString()[2] : null
 );
 </script>
 
@@ -61,7 +67,7 @@ const rightDigit = computed(() =>
   padding: 10px 12px;
   color: white;
 }
-.single-digit:first-child {
+.single-digit:not(:last-child) {
   margin-right: 2px;
 }
 .single-digit:after {
