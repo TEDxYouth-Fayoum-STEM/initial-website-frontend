@@ -46,6 +46,7 @@
         <Icon i="solid x" size="lg" class="text-error" />
       </div>
     </div>
+    <p v-if="props.desc" class="ml-1 mt-1">{{ props.desc }}</p>
     <p v-if="error" class="ml-1 mt-1 text-red-600 dark:text-red-500">
       {{ error }}
     </p>
@@ -75,6 +76,10 @@ const props = defineProps({
   type: {
     type: String,
     default: "text",
+  },
+  desc: {
+    type: String,
+    default: null,
   },
   e: {
     type: Object,

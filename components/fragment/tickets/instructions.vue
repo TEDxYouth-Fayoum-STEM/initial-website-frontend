@@ -44,7 +44,7 @@
         Feel free to contact us using:
         <Marked text="contact@tedxfay.org" priority="med" />,
         <Marked text="tedxyouthfayoumstem@gmail.com" />,
-        <Marked text="+201099238681" /> or <Marked text="+201065158294" />
+        <Marked text="+201551697124" /> or <Marked text="+201065158294" />
       </li>
     </ul>
   </div>
