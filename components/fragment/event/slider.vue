@@ -18,11 +18,9 @@
 import { Navigation, Pagination, Autoplay } from "swiper";
 
 const slides = [
-  "slide 1.png",
-  "slide 2.png",
+  "slide 1.jpeg",
+  // "slide 2.png",
   "slide 3.jpg",
-  "slide 4.jpg",
-  "slide 5.jpg",
 ];
 const pagination = { clickable: true };
 const autoplay = { delay: 4000 };
