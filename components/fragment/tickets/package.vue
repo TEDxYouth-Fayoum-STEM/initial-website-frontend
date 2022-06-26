@@ -11,7 +11,7 @@
         </h5>
         <div class="flex items-baseline text-gray-900 dark:text-white">
           <span class="text-2xl font-semibold">L.E.</span>
-          <span class="text-4xl font-extrabold tracking-tight">149</span>
+          <span class="text-4xl font-extrabold tracking-tight">75</span>
         </div>
       </div>
       <ul

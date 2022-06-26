@@ -118,7 +118,7 @@
       <FormControl
         name="receipt_img"
         type="file"
-        desc="We Pay: 01551800445 or Vodafone Cash: 01065158294"
+        desc="We Pay: 01551800445 or Vodafone Cash: 01065158294 (You Will Pay 75 L.E.)"
         i="solid receipt"
         class="lg:col-span-2"
         :schema="s.receipt_img"
