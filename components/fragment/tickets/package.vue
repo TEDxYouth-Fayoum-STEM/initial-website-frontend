@@ -3,7 +3,7 @@
   <div
     class="box flex flex-col items-center p-5 drop-shadow-md sm:max-w-lg md:w-auto lg:max-w-xl"
   >
-    <img class="w-auto rounded-t-lg" src="/ticket.jpeg" />
+    <img class="w-auto rounded-t-lg" src="/ticket.png" />
     <div class="mt-5">
       <div class="select-none">
         <h5 class="mb-1 text-xl font-medium text-primary-300 lg:mb-2">
@@ -36,11 +36,6 @@
 <script lang="ts" setup>
 const ticketPackage = [
   { i: "clipboard-user", t: "Attendance" },
-  {
-    i: "box",
-    t: "FayPackage (Button, Note, Pen, Bag & Stickers)",
-  },
-  { i: "utensils", t: "Meals (Breakfast & Lunch)" },
   { i: "circle-check", t: "Access to all Booths" },
   { i: "mug-hot", t: "Access to all Catering & Beverage" },
   { i: "chalkboard", t: "Access to all Internships & Courses" },
